@@ -27,7 +27,7 @@ public class ReceiptDao {
                 .fetchOne();
 
         checkState(receiptsRecord != null && receiptsRecord.getId() != null, "Insert failed");
-
+        //System.out.println(receiptsRecord);
         return receiptsRecord.getId();
     }
 

@@ -3,6 +3,7 @@ package controllers;
 import api.CreateReceiptRequest;
 import api.ReceiptResponse;
 import dao.ReceiptDao;
+import dao.TagDao;
 import generated.tables.records.ReceiptsRecord;
 
 import javax.validation.Valid;
@@ -13,27 +14,27 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Path("/receipts")
-@Consumes(MediaType.APPLICATION_JSON)
+@Path("/tags/{tag}")
+@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 @Produces(MediaType.APPLICATION_JSON)
-public class ReceiptController {
+public class TagController {
     final ReceiptDao receipts;
+    final TagDao tags;
 
-    public ReceiptController(ReceiptDao receipts) {
+    public TagController(ReceiptDao receipts, TagDao tags) {
         this.receipts = receipts;
+        this.tags = tags;
     }
 
-    @POST
-    public int createReceipt(@Valid @NotNull CreateReceiptRequest receipt) {
-        return receipts.insert(receipt.merchant, receipt.amount);
+    @PUT
+    public void toggleTag(@PathParam("tag") String tagName, @NotNull String receiptId) {
+        tags.tag(tagName, Integer.parseInt(receiptId));
     }
 
     @GET
-    public List<ReceiptResponse> getReceipts() {
-        List<ReceiptsRecord> receiptRecords = receipts.getAllReceipts();
+    public List<ReceiptResponse> getReceipts(@PathParam("tag") String tagName) {
+        List<ReceiptsRecord> receiptRecords = tags.getTaggedReceipts(tagName);
         return receiptRecords.stream().map(ReceiptResponse::new).collect(toList());
     }
-    //{"merchant": "foo","amount": 22.45}
+
 }
-
-
