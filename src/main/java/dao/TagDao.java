@@ -55,23 +55,13 @@ public class TagDao {
         } else {
             dsl.delete(TAGS).where(TAGS.RECEIPT_ID.eq(receiptId).and(TAGS.TAG.eq(tagName))).execute();
         }
-        //System.out.println(tagsRecord);
 
         TagsRecord temp = dsl.selectFrom(TAGS).fetchAny();
         System.out.println(temp);
-
-//        ReceiptsRecord receiptsRecord = dsl
-//                .insertInto(RECEIPTS, RECEIPTS.MERCHANT, RECEIPTS.AMOUNT)
-//                .values(merchantName, amount)
-//                .returning(RECEIPTS.ID)
-//                .fetchOne();
-//
-//        checkState(receiptsRecord != null && receiptsRecord.getId() != null, "Insert failed");
     }
 
     public List<ReceiptsRecord> getTaggedReceipts(String tagName)
     {
-        //return new ArrayList<ReceiptsRecord>();
         Result<?> result = dsl
                 .select(RECEIPTS.ID, RECEIPTS.MERCHANT, RECEIPTS.AMOUNT, RECEIPTS.UPLOADED)
                 .from(RECEIPTS)
@@ -80,7 +70,7 @@ public class TagDao {
                 .fetch();
 
         List<ReceiptsRecord> queryResult = new ArrayList<>();
-        //System.out.println("getTagged");
+
         for(Record r: result){
             ReceiptsRecord receiptsRecord = r.into(RECEIPTS);
             System.out.println(receiptsRecord);
