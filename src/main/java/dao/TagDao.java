@@ -17,26 +17,6 @@ import static com.google.common.base.Preconditions.checkState;
 import static generated.Tables.RECEIPTS;
 import static generated.Tables.TAGS;
 
-//package dao;
-//
-//import api.ReceiptResponse;
-//import com.sun.org.apache.regexp.internal.RE;
-//import generated.tables.records.ReceiptsRecord;
-//import generated.tables.records.TagsRecord;
-//import org.jooq.Configuration;
-//import org.jooq.DSLContext;
-//import org.jooq.Result;
-//import org.jooq.impl.DSL;
-//import org.jooq.Record;
-//
-//import java.math.BigDecimal;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import static com.google.common.base.Preconditions.checkState;
-//import static generated.Tables.RECEIPTS;
-//import static generated.Tables.TAGS;
-
 public class TagDao {
     DSLContext dsl;
 
