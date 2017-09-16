@@ -35,6 +35,9 @@ public class TagDao {
         } else {
             dsl.delete(TAGS).where(TAGS.RECEIPT_ID.eq(receiptId).and(TAGS.TAG.eq(tagName))).execute();
         }
+
+//        TagsRecord temp = dsl.selectFrom(TAGS).fetchAny();
+//        System.out.println(temp);
     }
 
     public List<ReceiptsRecord> getTaggedReceipts(String tagName)
@@ -50,9 +53,8 @@ public class TagDao {
 
         for(Record r: result){
             ReceiptsRecord receiptsRecord = r.into(RECEIPTS);
-            System.out.println(receiptsRecord);
+            //System.out.println(receiptsRecord);
             queryResult.add(receiptsRecord);
-
         }
         return queryResult;
     }
