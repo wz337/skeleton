@@ -9,7 +9,7 @@
         // This is the idiomatic way to ensure that JQuery does not
         // execute until the page has loaded
         $(function(){
-            const api = "http://localhost:8080"; // <- do not need a root api URL if this page is served directly by the API
+            const api = ""; // <- do not need a root api URL if this page is served directly by the API
             $.getJSON(api+"/tags", function(receipts){
                 var ids = [];
                 for(var i=0; i < receipts.length; i++) {
@@ -41,7 +41,7 @@
             $.ajax({
                 type: 'PUT',
                 contentType: 'text/plain',
-                url: 'http://localhost:8080/tags/'+$(this).text(),
+                url: '/tags/'+$(this).text(),
                 data: $(this).parent().parent().attr('id'),
             });
             $(this).remove();
@@ -56,7 +56,7 @@
                 $.ajax({
                     type: 'PUT',
                     contentType: 'text/plain',
-                    url: 'http://localhost:8080/tags/'+$(this).val(),
+                    url: '/tags/'+$(this).val(),
                     data: $(this).parent().parent().attr('id'),
                 });
                 $(`<button class="tagValue">${tag}</button>`)
@@ -82,7 +82,7 @@
                 //post
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost:8080/receipts',
+                    url: '/receipts',
                     data: JSON.stringify({"merchant":$("#merchant").val(),"amount":$("#amount").val()}),
                     contentType: 'application/json',
                     dataType: 'json',
